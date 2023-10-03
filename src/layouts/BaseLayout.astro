@@ -1,0 +1,42 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { ViewTransitions } from 'astro:transitions';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+
+
+type PageProps = CollectionEntry<'infoPages'>["data"];
+type Props =  PageProps & { slug: string };
+
+const props = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={props.title} subtitle={props.subtitle} description={props.description} />
+        <ViewTransitions />
+	</head>
+
+	<body class="bg-black">        
+        <Navbar slug={props.slug} />
+		<Hero {...props} />
+        <div class="bg-btc ">
+            <main class="mx-auto max-w-[42rem] py-40 px-8">
+                <slot />
+            </main>           
+        </div> 
+		<Footer />
+	</body>
+    
+    <style is:inline>
+        html {
+            word-break: break-word;
+            text-wrap: balance;
+        }
+        p {
+            text-align: justify;
+        }
+    </style>
+</html>

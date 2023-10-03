@@ -1,0 +1,24 @@
+---
+import {  getCollection } from 'astro:content';
+
+type Props = { slug: string }
+const props = Astro.props 
+
+const _pages = await getCollection('infoPages');
+const pages =  _pages.sort((a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER)).map((post) => ({
+		title: post.data.title,
+		slug: "/" + post.slug,
+}));
+
+pages.unshift({ title: "Start", slug: "/"})
+---
+
+<nav class="container left-0 right-0 mx-auto px-8 absolute py-6 ">
+	<ul class="flex gap-2 md:gap-6 font-light text-sm text-white text-xs flex-wrap w-full">
+		{ pages.map(page => (
+			<li>
+				<a href={page.slug}  class={ props.slug === page.slug ? "text-btc hover:underline" : "hover:text-btc hover:underline "}>{page.title}</a>
+			</li>
+		))}
+	</ul>			
+</nav>

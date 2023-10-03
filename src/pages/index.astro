@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from "../layouts/BaseLayout.astro"
+import downTheRabbitHoleImage from "../images/down-the-rabbit-hole.webp"
+
+const posts = await getCollection('infoPages');
+const pages =  posts.sort((a, b) => (a.data.order ?? Number.MAX_SAFE_INTEGER) - (b.data.order ?? Number.MAX_SAFE_INTEGER)).map(el => ({ title: el.data.title, slug: "/" + el.slug}))
+
+type PagesDictionary = { [key: string]: string }
+
+const pageDescriptions: PagesDictionary = {
+	"/money-history": "Trace back through time to understand how Bitcoin fits into the rich tapestry of monetary evolution.",
+	"/economics": "Learn about the economic principles that shape Bitcoin's value, scarcity, and potential as a global currency.",
+	"/mathematics": "Discover the intricate mathematical algorithms that underpin Bitcoin's security and decentralized nature.",
+	"/informatics": "Dive into the technical aspects of blockchain technology and its role in ensuring transparency and immutability within the Bitcoin network.",
+	"/physics": "Explore how concepts from physics help us understand the energy consumption and environmental impact of Bitcoin mining.",
+	"/biology": "Uncover surprising parallels between biological systems and the decentralized nature of Bitcoin's network.",
+} 
+---
+
+<BaseLayout 
+	slug="/"
+	title='Bitcoin is Complex' 
+	subtitle='A first look down the rabbit hole' 
+	description="Embarking on a captivating exploration into the depths of Bitcoin's complexity, we venture into the intricate realm of science to decode the enigmatic essence of this groundbreaking digital currency. Spanning mathematics, physics, informatics, biology, economics, and the rich tapestry of monetary history, we delve into the diverse dimensions that converge to craft the intricate nature of Bitcoin. Prepare for enlightenment as we untangle the interplay of these disciplines, unveiling the foundational elements that transform Bitcoin into a paradigm-altering phenomenon."
+	heroImg={downTheRabbitHoleImage}
+	heroImgSrc="https://superrare.com/0xb932a70a57673d89f4acffbe830e8ed7f75fb9e0/down-the-bitcoin-rabbit-hole-42330">
+	<div class="text-lg ">
+		<h2 class="text-4xl leading-loose">Choose Your Exploration Path</h2> 
+		<p>Take a deeper dive into the intricacies of Bitcoin by exploring dedicated subpages for each facet:</p>
+		<ul class="list-disc px-4 py-4 leading-normal text-wrap text-justify">
+			{ pages.map(page => (
+				<li class="py-2">									
+						<a class="underline hover:text-white" href={page.slug}>{page.title}</a>: {pageDescriptions[page.slug]}										
+				</li> 
+			))}
+		</ul>
+		<p>Each dedicated subpage offers unique perspectives on how these scientific disciplines contribute to our comprehension of Bitcoin. Brace yourself for a journey of intellectual expansion!</p>	
+	</div>
+</BaseLayout>

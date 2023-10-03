@@ -1,0 +1,28 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+	const pages = await getCollection('infoPages');
+	return pages.map((page) => ({
+		params: { slug: page.slug },
+		props: page,
+	}));
+}
+
+type Props = CollectionEntry<'infoPages'>;
+const page = Astro.props;
+const { Content } = await page.render();
+---
+
+<BaseLayout {...page.data} slug={"/" + page.slug} >
+	<article class="text-lg [&>h2]:text-4xl [&>h2]:pb-2 [&>h2]:pt-12 [&>p]:py-2 [&>*]:leading-loose [&>iframe]:w-full">
+		<Content />
+	</article>
+</BaseLayout>
+
+<style is:inline>
+	h2:first-of-type {
+		padding-top: 0;
+	}
+</style>

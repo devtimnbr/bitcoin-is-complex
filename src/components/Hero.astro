@@ -1,0 +1,32 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = CollectionEntry<'infoPages'>["data"];
+const props = Astro.props;
+---
+
+<header class="text-white" >
+    <div class="container mx-auto lg:min-h-screen flex gap-16 py-24 flex-col md:flex-row items-center px-8">
+        <div class="flex flex-col flex-1" transition:name="hero">
+            <p class="font-light text-xl leading-normal uppercase text-left">
+                { props.subtitle }
+            </p>
+            <h1 class="font-bold text-5xl uppercase mt-4">
+                { props.title }
+            </h1>
+            <p class="leading-relaxed mt-6">
+                { props.description }
+            </p>
+        </div>
+        <figure class="flex-1 w-full" >
+            <Image src={props.heroImg} alt={"Bitcoin is Complex - " + props.title} class="border-4 border-btc" />
+            <figcaption class="mt-1 w-full">
+                <a href={props.heroImgSrc.split(" ")[0]}
+                    class="text-[0.625rem] font-light text-gray-600 text-wrap whitespace-normal block break-all" >
+                    {props.heroImgSrc}
+                </a>
+            </figcaption>
+        </figure>
+    </div>
+</header>
