@@ -12,7 +12,7 @@ const props = Astro.props;
             <p class="font-light text-xl leading-normal uppercase text-left">
                 { props.subtitle }
             </p>
-            <h1 class="font-bold text-5xl uppercase mt-4">
+            <h1 class="font-bold text-4xl sm:text-5xl uppercase mt-4">
                 { props.title }
             </h1>
             <p class="leading-relaxed mt-6">
@@ -23,7 +23,7 @@ const props = Astro.props;
             <Image src={props.heroImg} alt={"Bitcoin is Complex - " + props.title} class="border-4 border-btc" />
             <figcaption class="mt-1 w-full">
                 <a href={props.heroImgSrc.split(" ")[0]}
-                    class="text-[0.625rem] font-light text-gray-600 text-wrap whitespace-normal block break-all" >
+                    class="text-xs font-light text-gray-400 text-wrap whitespace-normal block break-all" >
                     {props.heroImgSrc}
                 </a>
             </figcaption>
